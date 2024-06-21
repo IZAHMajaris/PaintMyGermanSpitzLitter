@@ -1,0 +1,126 @@
+input[id=toggleELokus]:checked ~ .eLokus{
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+input[id=toggleELokus]:checked ~ .sLokusUE{
+    display: none;
+}
+input[id=toggleELokus]:checked ~ .iLokusUE{
+    display: none;
+}
+input[id=toggleKLokus]:checked ~ .kLokus {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+input[id=toggleKLokus]:checked ~ .dLokusUK {
+    display: none;
+}
+input[id=toggleKLokus]:checked ~ .bLokusUK {
+    display: none;
+}
+input[id=toggleKLokus]:checked ~ .dLokusBUK {
+    display: none;
+}
+input[id=toggleALokus]:checked ~ .aLokus {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+input[id=toggleALokus]:checked ~ .iLokusUA {
+    display: none;
+}
+input[id=toggleBLokus]:checked ~ .bLokus {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+input[id=toggleBLokus]:checked ~ .dLokusUB {
+    display: none;
+}
+input[id=toggleDLokus]:checked ~ .dLokus {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+input[id=toggleILokus]:checked ~ .iLokus {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+input[id=toggleSLokus]:checked ~ .sLokus {
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+
+img {
+    position: absolute;
+    top: 50px;
+    left: 500px;
+}
+
+.parentTable img{
+    position: inherit;
+}
+
+.ImpresssumButton {
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+/* Styles Seite*/
+
+body {
+    background: #242223;
+    font-size: 20px;
+}
+
+div.content {
+    background: #FFCE73;
+    padding: 10px 50px 20px 50px;
+    border-radius: 30px;
+}
+
+div.farbgenetik_content {
+    background: white;
+    padding: 10px 50px 20px 50px;
+    border-radius: 30px;
+}
+
+.farbgenetik_content_genetikrechner {
+    background: white;
+    padding: 10px 50px 20px 50px;
+    border-radius: 30px;
+    display: flex;
+}
+
+.farbgenetik_content_genetikrechner form {
+    flex: 0 0 50%;
+}
+
+.farbgenetik_content_genetikrechner.parentTable {
+    flex: 1;
+}
+
+.ImpresssumButton button {
+    background: #FFCE73;
+    border-radius: 30px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* Bilder Diebstahlschutz */
+.jw-album-image img,
+.jw-element-image img { pointer-events: none; -webkit-touch-callout: none; }
+.pswp__share-tooltip
+.pswp__share--download { display: none; }
