@@ -61,6 +61,12 @@ img {
     left: 500px;
 }
 
+img.Children{
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
 .parentTable img{
     position: inherit;
 }
@@ -124,3 +130,32 @@ div.farbgenetik_content {
 .jw-element-image img { pointer-events: none; -webkit-touch-callout: none; }
 .pswp__share-tooltip
 .pswp__share--download { display: none; }
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+.rowChildren {
+    display: flex;
+    margin-left:-5px;
+    margin-right:-5px;
+}
+
+.columnChildren  {
+    flex: 50%;
+    padding: 5px;
+}
+
+table .Children {
+    border-collapse: collapse;
+    border-spacing: 0;
+    /*width: 100%;*/
+    border: 1px solid #ddd;
+}
+
+th, td .Children {
+    text-align: left;
+    padding: 16px;
+}
