@@ -183,6 +183,68 @@ class Ausgabe
 
     private function getColorsSecundaryLoki($loki, $kombination) {
         $colors = [
+            'E' => [
+                'NN' => '',
+                'NE' => '',
+                'Ne1' => '',
+                'NEm' => 'Maske',
+                'EN' => '',
+                'EE' => '',
+                'Ee1' => '',
+                'EEm' => 'Maske',
+                'e1N' => '',
+                'e1E' => '',
+                'e1e1' => 'Orange',
+                'e1Em' => 'Maske',
+                'EmN' => 'Maske',
+                'EmE' => 'Maske',
+                'Eme1' => 'Maske',
+                'EmEm' => 'Maske',
+            ],
+            'K' => [
+                'KbKb' => 'Schwarz',
+                'Kbky' => 'Schwarz',
+                'kyKb' => 'Schwarz',
+                'kyky' => '',
+            ],
+            'A' => [
+                'DYDY' => 'Orange',
+                'DYSY' => 'Orange',
+                'DYAG' => 'Orange',
+                'DYBS' => 'Orange',
+                'DYBB' => 'Orange',
+                'DYa' => 'Orange',
+                'SYDY' => 'Orange',
+                'SYSY' => 'Orange Sable',
+                'SYAG' => 'Orange Sable',
+                'SYBS' => 'Orange Sable',
+                'SYBB' => 'Orange Sable',
+                'SYa' => 'Orange Sable ',
+                'AGDY' => 'Orange',
+                'AGSY' => 'Orange Sable',
+                'AGAG' => 'Wolfsfarben',
+                'AGBS' => 'Wolfsfarben',
+                'AGBB' => 'Wolfsfarben',
+                'AGa' => 'Wolfsfarben',
+                'BSDY' => 'Orange',
+                'BSSY' => 'Orange Sable',
+                'BSAG' => 'Wolfsfarben',
+                'BSBS' => 'Saddle Tan',
+                'BSBB' => 'Großflächiges Saddle Tan',
+                'BSa' => 'Großflächiges Saddle Tan',
+                'BBDY' => 'Orange',
+                'BBSY' => 'Orange Sable',
+                'BBAG' => 'Wolfsfarben',
+                'BBBS' => 'Großflächiges Saddle Tan',
+                'BBBB' => 'Black&Tan',
+                'BBa' => 'Black&Tan',
+                'aDY' => 'Orange',
+                'aSY' => 'Orange Sable',
+                'aAG' => 'Wolfsfarben',
+                'aBS' => 'Großflächiges Saddle Tan',
+                'aBB' => 'Black&Tan',
+                'aa' => 'Schwarz',
+            ],
             'B' => [
                 'NN' => '',
                 'Nbc' => '',
@@ -320,10 +382,10 @@ class Ausgabe
         $false = "false";
 
         $formularArray = [
-            'eLokus_Hund_1_1' => ['none' => '', 'N' => '', 'e1' => ''],
-            'eLokus_Hund_1_2' => ['none' => '', 'N' => '', 'e1' => ''],
-            'eLokus_Hund_2_1' => ['none' => '', 'N' => '', 'e1' => ''],
-            'eLokus_Hund_2_2' => ['none' => '', 'N' => '', 'e1' => ''],
+            'eLokus_Hund_1_1' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
+            'eLokus_Hund_1_2' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
+            'eLokus_Hund_2_1' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
+            'eLokus_Hund_2_2' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
             'kLokus_Hund_1_1' => ['none' => '', 'Kb' => '', 'ky' => ''],
             'kLokus_Hund_1_2' => ['none' => '', 'Kb' => '', 'ky' => ''],
             'kLokus_Hund_2_1' => ['none' => '', 'Kb' => '', 'ky' => ''],
@@ -378,6 +440,7 @@ class Ausgabe
                                 <select name="eLokus_Hund_1_1" id="eLokus_Hund_1_1">
                                     <option value="none" '.$formularArray['eLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_1_1']['N'].'>N(E)</option>
+                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_1_1']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
@@ -385,6 +448,7 @@ class Ausgabe
                                 <select name="eLokus_Hund_1_2" id="eLokus_Hund_1_2">
                                     <option value="none" '.$formularArray['eLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_1_2']['N'].'>N(E)</option>
+                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_1_2']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
@@ -392,6 +456,7 @@ class Ausgabe
                                 <select name="eLokus_Hund_2_1" id="eLokus_Hund_2_1">
                                     <option value="none" '.$formularArray['eLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_2_1']['N'].'>N(E)</option>
+                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_2_1']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
@@ -399,6 +464,7 @@ class Ausgabe
                                 <select name="eLokus_Hund_2_2" id="eLokus_Hund_2_2">
                                     <option value="none" '.$formularArray['eLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_2_2']['N'].'>N(E)</option>
+                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_2_2']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
@@ -656,7 +722,7 @@ class Ausgabe
             foreach ($test as $lokus => $combination) {
                 $output .= '
                     <div class="columnChildren">
-                        <h4>'.$lokus.' - Lokus</h4>
+                        <b>'.$lokus.' - Lokus</b>
                         <table class="Children">
                             <th class="Children">
                                 <td class="Children">'.$formularWerteAufbereitet['A'][$lokus][0].'</td>
@@ -721,8 +787,6 @@ class Ausgabe
                     $prozentuebergabe = 1-$prozentRezessivGelb;
 
                     $content .= ($prozentRezessivGelb*100). '% rezzesiv Gelb<br>';
-//                    $content .= '<img class="Children" src="images/' . $this->getLokiMapAdvanced()['E']['e1e1']. '.png" style="height:300px;"><hr><br>';
-//                    $content .= '<hr>';
                 }
             }
 
@@ -743,21 +807,18 @@ class Ausgabe
                     }
 
                     $content .=  ($prozentuebergabe*$prozentSchwarz)*100 . '% dominant Schwarz<br>';
-//                    $content .= '<img class="Children" src="images/' . $this->getLokiMapAdvanced()['K']['KbKb'] . '.png" style="height:300px;"><hr><br>';
-//                    $content .= '<hr>';
                 } else {
                     $rest = $prozentuebergabe;
                 }
             }
 
             if(array_key_exists('A', $combinations)){
-                $content .= ($rest*100). '% prägen den A-Lokus Phänotypisch aus. Davon <br><br>';
+                $content .= ($rest*100). '% prägen den A-Lokus Phänotypisch aus<br><hr>A-Lokus Farb-Wahrscheinlichkeiten<br><br>';
                 $prozentFarbe = 1/count(array_unique($combinations['A']));
 
                 if($rest !== 0.0) {
                     foreach (array_unique($combinations['A']) as $kombination) {
                         $content .= ($rest*$prozentFarbe) * 100 . '% ' . $this->translateColorsWithLoki($kombination) . '<br>';
-//                        $content .= '<img class="Children" src="images/' . $this->getLokiMapAdvanced()['A'][$kombination] . '.png" style="height:300px;"><br>';
                     }
                 }
             }
@@ -777,6 +838,7 @@ class Ausgabe
             'wahrscheinlichkeiten' => [],
             'farben' => [
                 'Grundfarben' => [],
+                'K' => [],
                 'I' => [],
                 'S' => [],
             ],
@@ -835,7 +897,7 @@ class Ausgabe
                     if(array_key_exists('B', $combinations)){
                         foreach (array_unique($combinations['B']) as $kombination) {
                             if(!empty($this->getColorsSecundaryLoki('B', $kombination))) {
-                                $kombinationen['farben']['Grundfarben'][] = $this->getColorsSecundaryLoki('B', $kombination);
+                                $kombinationen['farben']['K'][] = $this->getColorsSecundaryLoki('B', $kombination);
                             }
                         }
                     }
@@ -843,13 +905,13 @@ class Ausgabe
                     if(array_key_exists('D', $combinations)){
                         foreach (array_unique($combinations['D']) as $kombination) {
                             if(!empty($this->getColorsSecundaryLoki('D', $kombination))) {
-                                $kombinationen['farben']['Grundfarben'][] = $this->getColorsSecundaryLoki('D', $kombination);
+                                $kombinationen['farben']['K'][] = $this->getColorsSecundaryLoki('D', $kombination);
                             }
                         }
                     }
 
-                    if(in_array('Braun', $kombinationen['farben']['Grundfarben']) && in_array('Blue', $kombinationen['farben']['Grundfarben'])){
-                        $kombinationen['farben']['Grundfarben'][] = 'Isabella';
+                    if(in_array('Braun', $kombinationen['farben']['K']) && in_array('Blue', $kombinationen['farben']['K'])){
+                        $kombinationen['farben']['K'][] = 'Isabella';
                     }
 
                 } else {
@@ -898,9 +960,40 @@ class Ausgabe
     private function paintChildrenColorTable($formularWerteAufbereitet)
     {
         $wahrscheinlichkeiten = $this->berechneFarbwahrscheinlichkeiten($formularWerteAufbereitet);
-        $content = '<table>';
+        $content = '<div class="farbgenetik_content"><table>';
 
         foreach ($wahrscheinlichkeiten['farben']['Grundfarben'] as $farbe) {
+            $zusatz = '';
+            if ($farbe === "Schwarz" && !empty($wahrscheinlichkeiten['farben']['K'])) {
+                foreach ($wahrscheinlichkeiten['farben']['K'] as $schwarz_zusatz) {
+                    $zusatz .= '
+                        <td>
+                            <div class="childrenResultTableDiv">
+                                '.$schwarz_zusatz.'<img class="EKALokus" src="images/' . $schwarz_zusatz . '.png" style="height:200px;">
+                            </div>
+                        </td>
+                    ';
+                }
+            }
+            if ($farbe === "Black&Tan" && in_array('Braun', $wahrscheinlichkeiten['farben']['K'])) {
+                $zusatz .= '
+                    <td>
+                        <div class="childrenResultTableDiv">
+                            Brown&Tan <img class="EKALokus" src="images/Brown&Tan.png" style="height:200px;">
+                        </div>
+                    </td>
+                ';
+            }
+            if ($farbe === "Black&Tan" && in_array('Blue', $wahrscheinlichkeiten['farben']['K'])) {
+                $zusatz .= '
+                    <td>
+                        <div class="childrenResultTableDiv">
+                            Blue&Tan <img class="EKALokus" src="images/Blue&Tan.png" style="height:200px;">
+                        </div>
+                    </td>
+                ';
+            }
+
             $content .= '
                 <tr>
                     <td>
@@ -908,11 +1001,12 @@ class Ausgabe
                             '.$farbe.'<img class="EKALokus" src="images/' . $farbe . '.png" style="height:200px;">
                         </div>
                     </td>
+                    '.$zusatz.'
                 </tr>
             ';
         }
 
-        $content .= '</table>';
+        $content .= '</table></div>';
 //        print_r($wahrscheinlichkeiten);
 
 
@@ -953,10 +1047,11 @@ class Ausgabe
 
         $content .= $this->buildFormular($formularWerte, $formularWerteAufbereitet);
         $content .= '<br>';
-        $content .= $this->showPossibleColorsOfChildren($formularWerteAufbereitet);
-        $content .= $this->paintChildrenColorTable($formularWerteAufbereitet);
-        $content .= '<br>';
         $content .= $this->showLokiPossibilities($formularWerteAufbereitet);
+        $content .= '<br>';
+        $content .= $this->showPossibleColorsOfChildren($formularWerteAufbereitet);
+        $content .= '<br>';
+        $content .= $this->paintChildrenColorTable($formularWerteAufbereitet);
 
         $content .= '</div>';
 
