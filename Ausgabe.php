@@ -87,7 +87,54 @@ class Ausgabe
         ];
     }
 
-    private function translateColors($kombination) {
+    private function translateColorsWithoutLoki($kombination) {
+        $colors = [
+            'e1e1' => 'Orange',
+            'KbKb' => 'Schwarz',
+            'Kbky' => 'Schwarz',
+            'kyKb' => 'Schwarz',
+            'DYDY' => 'Orange',
+            'DYSY' => 'Orange',
+            'DYAG' => 'Orange',
+            'DYBS' => 'Orange',
+            'DYBB' => 'Orange',
+            'DYa' => 'Orange',
+            'SYDY' => 'Orange',
+            'SYSY' => 'Orange Sable',
+            'SYAG' => 'Orange Sable',
+            'SYBS' => 'Orange Sable',
+            'SYBB' => 'Orange Sable',
+            'SYa' => 'Orange Sable ',
+            'AGDY' => 'Orange',
+            'AGSY' => 'Orange Sable',
+            'AGAG' => 'Wolfsfarben',
+            'AGBS' => 'Wolfsfarben',
+            'AGBB' => 'Wolfsfarben',
+            'AGa' => 'Wolfsfarben',
+            'BSDY' => 'Orange',
+            'BSSY' => 'Orange Sable',
+            'BSAG' => 'Wolfsfarben',
+            'BSBS' => 'Saddle Tan',
+            'BSBB' => 'Großflächiges Saddle Tan',
+            'BSa' => 'Großflächiges Saddle Tan',
+            'BBDY' => 'Orange',
+            'BBSY' => 'Orange Sable',
+            'BBAG' => 'Wolfsfarben',
+            'BBBS' => 'Großflächiges Saddle Tan',
+            'BBBB' => 'Black&Tan',
+            'BBa' => 'Black&Tan',
+            'aDY' => 'Orange',
+            'aSY' => 'Orange Sable',
+            'aAG' => 'Wolfsfarben',
+            'aBS' => 'Großflächiges Saddle Tan',
+            'aBB' => 'Black&Tan',
+            'aa' => 'Schwarz',
+        ];
+
+        return $colors[$kombination];
+    }
+
+    private function translateColorsWithLoki($kombination) {
         $colors = [
             'e1e1' => 'e1e1 - Orange',
             'KbKb' => 'KbKb - Schwarz',
@@ -132,6 +179,49 @@ class Ausgabe
         ];
 
         return $colors[$kombination];
+    }
+
+    private function getColorsSecundaryLoki($loki, $kombination) {
+        $colors = [
+            'B' => [
+                'NN' => '',
+                'Nbc' => '',
+                'Nbd' => '',
+                'Nbs' => '',
+                'bcN' => '',
+                'bcbc' => 'Braun',
+                'bcbd' => 'Braun',
+                'bcbs' => 'Braun',
+                'bdN' => '',
+                'bdbc' => 'Braun',
+                'bdbd' => 'Braun',
+                'bdbs' => 'Braun',
+                'bsN' => '',
+                'bsbc' => 'Braun',
+                'bsbd' => 'Braun',
+                'bsbs' => 'Braun',
+            ],
+            'D' => [
+                'NN' => '',
+                'Nd1' => '',
+                'd1N' => '',
+                'd1d1' => 'Blue',
+            ],
+            'I' => [
+                'II' => 'Dunkel',
+                'Ii' => 'Mittel',
+                'iI' => 'Mittel',
+                'ii' => 'Hell',
+            ],
+            'S' => [
+                'NS' => 'Abzeichen',
+                'SN' => 'Abzeichen',
+                'NN' => '',
+                'SS' => 'Scheckung',
+            ],
+        ];
+
+        return $colors[$loki][$kombination];
     }
 
     private function getImageOfParent($lokiParent) {
@@ -666,7 +756,7 @@ class Ausgabe
 
                 if($rest !== 0.0) {
                     foreach (array_unique($combinations['A']) as $kombination) {
-                        $content .= ($rest*$prozentFarbe) * 100 . '% ' . $this->translateColors($kombination) . '<br>';
+                        $content .= ($rest*$prozentFarbe) * 100 . '% ' . $this->translateColorsWithLoki($kombination) . '<br>';
 //                        $content .= '<img class="Children" src="images/' . $this->getLokiMapAdvanced()['A'][$kombination] . '.png" style="height:300px;"><br>';
                     }
                 }
@@ -680,6 +770,157 @@ class Ausgabe
 
         return $content;
     }
+
+    private function berechneFarbwahrscheinlichkeiten($formularWerteAufbereitet)
+    {
+        $kombinationen = [
+            'wahrscheinlichkeiten' => [],
+            'farben' => [
+                'Grundfarben' => [],
+                'I' => [],
+                'S' => [],
+            ],
+        ];
+        if(empty($formularWerteAufbereitet)){
+            return [];
+        }
+
+        foreach($formularWerteAufbereitet['A'] as $loki=>$wert){
+            $combinations[$loki] = [
+                $formularWerteAufbereitet['A'][$loki][0].$formularWerteAufbereitet['B'][$loki][0],
+                $formularWerteAufbereitet['A'][$loki][0].$formularWerteAufbereitet['B'][$loki][1],
+                $formularWerteAufbereitet['A'][$loki][1].$formularWerteAufbereitet['B'][$loki][0],
+                $formularWerteAufbereitet['A'][$loki][1].$formularWerteAufbereitet['B'][$loki][1],
+            ];
+        }
+
+        if(!empty($combinations)){
+            $rest = 1;
+            $prozentuebergabe = 1;
+            if(array_key_exists('E', $combinations)){
+                $mengePositiv = 0;
+                foreach($combinations['E'] as $kombination){
+                    if($this->isELokusShown($kombination)){
+                        $mengePositiv++;
+                    }
+                }
+
+                if($mengePositiv !== 0){
+                    $prozentRezessivGelb= (1/count($combinations['E']))*$mengePositiv;
+                    $prozentuebergabe = 1-$prozentRezessivGelb;
+
+                    $kombinationen['wahrscheinlichkeiten']['dominant Gelb'] = $prozentRezessivGelb*100;
+                    $kombinationen['farben']['Grundfarben'][] = 'Orange';
+                }
+            }
+
+            if(array_key_exists('K', $combinations)){
+                $mengePositiv = 0;
+                foreach($combinations['K'] as $kombination){
+                    if($this->isKLokusShown($kombination)){
+                        $mengePositiv++;
+                    }
+                }
+
+                if($mengePositiv !== 0) {
+                    $prozentSchwarz= (1/count($combinations['K']))*$mengePositiv;
+                    if($prozentuebergabe === 1){
+                        $rest = 1-$prozentSchwarz;
+                    } else {
+                        $rest = $prozentuebergabe-($prozentuebergabe*$prozentSchwarz);
+                    }
+                    $kombinationen['wahrscheinlichkeiten']['dominant Schwarz'] = ($prozentuebergabe*$prozentSchwarz)*100;
+                    $kombinationen['farben']['Grundfarben'][] = 'Schwarz';
+
+                    if(array_key_exists('B', $combinations)){
+                        foreach (array_unique($combinations['B']) as $kombination) {
+                            if(!empty($this->getColorsSecundaryLoki('B', $kombination))) {
+                                $kombinationen['farben']['Grundfarben'][] = $this->getColorsSecundaryLoki('B', $kombination);
+                            }
+                        }
+                    }
+
+                    if(array_key_exists('D', $combinations)){
+                        foreach (array_unique($combinations['D']) as $kombination) {
+                            if(!empty($this->getColorsSecundaryLoki('D', $kombination))) {
+                                $kombinationen['farben']['Grundfarben'][] = $this->getColorsSecundaryLoki('D', $kombination);
+                            }
+                        }
+                    }
+
+                    if(in_array('Braun', $kombinationen['farben']['Grundfarben']) && in_array('Blue', $kombinationen['farben']['Grundfarben'])){
+                        $kombinationen['farben']['Grundfarben'][] = 'Isabella';
+                    }
+
+                } else {
+                    $rest = $prozentuebergabe;
+                }
+            }
+
+            if(array_key_exists('A', $combinations)){
+                $prozentFarbe = 1/count(array_unique($combinations['A']));
+
+                if($rest !== 0.0) {
+                    foreach (array_unique($combinations['A']) as $kombination) {
+                        $kombinationen['wahrscheinlichkeiten'][$this->translateColorsWithLoki($kombination)] = ($rest*$prozentFarbe) * 100;
+                        $kombinationen['farben']['Grundfarben'][] = $this->translateColorsWithoutLoki($kombination);
+                    }
+                }
+
+                if(in_array('Black&Tan', $kombinationen['farben']['Grundfarben']) && in_array('Braun', $kombinationen['farben']['Grundfarben'])){
+                    $kombinationen['farben']['Grundfarben'][] = 'Brown&Tan';
+                }
+            }
+
+            if(array_key_exists('I', $combinations)){
+                foreach (array_unique($combinations['I']) as $kombination) {
+                    if(!empty($this->getColorsSecundaryLoki('I', $kombination))) {
+                        $kombinationen['farben']['I'][] = $this->getColorsSecundaryLoki('I', $kombination);
+                    }
+                }
+            }
+
+            if(array_key_exists('S', $combinations)){
+                foreach (array_unique($combinations['S']) as $kombination) {
+                    if(!empty($this->getColorsSecundaryLoki('S', $kombination))){
+                        $kombinationen['farben']['S'][] = $this->getColorsSecundaryLoki('S', $kombination);
+                    }
+                }
+            }
+        }
+
+
+        $kombinationen['farben']['Grundfarben'] = array_unique($kombinationen['farben']['Grundfarben']);
+
+        return $kombinationen;
+    }
+
+    private function paintChildrenColorTable($formularWerteAufbereitet)
+    {
+        $wahrscheinlichkeiten = $this->berechneFarbwahrscheinlichkeiten($formularWerteAufbereitet);
+        $content = '<table>';
+
+        foreach ($wahrscheinlichkeiten['farben']['Grundfarben'] as $farbe) {
+            $content .= '
+                <tr>
+                    <td>
+                        <div class="childrenResultTableDiv">
+                            '.$farbe.'<img class="EKALokus" src="images/' . $farbe . '.png" style="height:200px;">
+                        </div>
+                    </td>
+                </tr>
+            ';
+        }
+
+        $content .= '</table>';
+//        print_r($wahrscheinlichkeiten);
+
+
+        return $content;
+
+
+    }
+
 
     public function showContent()
     {
@@ -713,6 +954,7 @@ class Ausgabe
         $content .= $this->buildFormular($formularWerte, $formularWerteAufbereitet);
         $content .= '<br>';
         $content .= $this->showPossibleColorsOfChildren($formularWerteAufbereitet);
+        $content .= $this->paintChildrenColorTable($formularWerteAufbereitet);
         $content .= '<br>';
         $content .= $this->showLokiPossibilities($formularWerteAufbereitet);
 

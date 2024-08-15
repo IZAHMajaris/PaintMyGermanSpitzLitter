@@ -159,3 +159,16 @@ th, td .Children {
     text-align: left;
     padding: 16px;
 }
+
+
+
+
+.childrenResultTableDiv {
+    width: 250px;
+    text-align: center;
+}
+
+.childrenResultTableDiv img {
+    position:revert;
+    height:200px;
+}
