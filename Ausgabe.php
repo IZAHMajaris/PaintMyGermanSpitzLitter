@@ -1,33 +1,48 @@
 <?php
 
 namespace Ausgabe;
+
+include 'Helper.php';
+use Ausgabe\Helper;
+
+const savedDogs = [
+    'none' =>[
+        'name' => 'none'
+    ],
+    'galahad' => [
+        'name' => 'Lord Galahad von Jaluk Aurora',
+        'E' => ['N', 'e1'],
+        'K' => ['ky','ky'],
+        'A' => ['DY','DY'],
+        'B' => ['N','bs'],
+        'D' => ['N','N'],
+        'I' => ['i','i'],
+        'S' => ['N','S']
+    ],
+    'ivo-wunjo' => [
+        'name' => 'Ivo-Wunjo von Jaluk Aurora',
+        'E' => ['N', 'e1'],
+        'K' => ['ky', 'ky'],
+        'A' => ['BB', 'BB'],
+        'B' => ['N', 'N'],
+        'D' => ['N', 'N'],
+        'I' => ['i', 'i'],
+        'S' => ['N', 'N'],
+    ],
+    'aslan' => [
+        'name' => 'Aslan von der Roßsteige',
+        'E' => ['N', 'e1'],
+        'K' => ['ky', 'ky'],
+        'A' => ['BB', 'BB'],
+        'B' => ['N', 'bs'],
+        'D' => ['N', 'N'],
+        'I' => ['I', 'i'],
+        'S' => ['N', 'N'],
+    ],
+];
+
 class Ausgabe
 {
-    public function isELokusShown($elokusKombination) {
-        $result = false;
-        if(array_key_exists($elokusKombination, $this->getLokiMapAdvanced()['E'])){
-            $result = true;
-        }
-        return $result;
-    }
-
-    public function isKLokusShown($klokusKombination) {
-        $result = false;
-        if(array_key_exists($klokusKombination, $this->getLokiMapAdvanced()['K'])){
-            $result = true;
-        }
-        return $result;
-    }
-
-    public function isALokusShown($alokusKombination) {
-        $result = 'false';
-        if(array_key_exists($alokusKombination, $this->getLokiMapAdvanced()['A'])){
-            $result = true;
-        }
-        return $result;
-    }
-
-
     private function getNoneVisibleHelper() {
         return [
             'B' => ['NN', 'Nbs', 'Nbd', 'Nbc', 'bdN', 'bcN', 'bsN', 'N', 0, 'Nnone', 'noneN', 'bsnone', 'nonebs', 'bdnone', 'nonebd', 'bcnone', 'nonebc', 'nonenone'],
@@ -85,205 +100,6 @@ class Ausgabe
                 'aa' => 'aa',
             ],
         ];
-    }
-
-    private function translateColorsWithoutLoki($kombination) {
-        $colors = [
-            'e1e1' => 'Orange',
-            'KbKb' => 'Schwarz',
-            'Kbky' => 'Schwarz',
-            'kyKb' => 'Schwarz',
-            'DYDY' => 'Orange',
-            'DYSY' => 'Orange',
-            'DYAG' => 'Orange',
-            'DYBS' => 'Orange',
-            'DYBB' => 'Orange',
-            'DYa' => 'Orange',
-            'SYDY' => 'Orange',
-            'SYSY' => 'Orange Sable',
-            'SYAG' => 'Orange Sable',
-            'SYBS' => 'Orange Sable',
-            'SYBB' => 'Orange Sable',
-            'SYa' => 'Orange Sable ',
-            'AGDY' => 'Orange',
-            'AGSY' => 'Orange Sable',
-            'AGAG' => 'Wolfsfarben',
-            'AGBS' => 'Wolfsfarben',
-            'AGBB' => 'Wolfsfarben',
-            'AGa' => 'Wolfsfarben',
-            'BSDY' => 'Orange',
-            'BSSY' => 'Orange Sable',
-            'BSAG' => 'Wolfsfarben',
-            'BSBS' => 'Saddle Tan',
-            'BSBB' => 'Großflächiges Saddle Tan',
-            'BSa' => 'Großflächiges Saddle Tan',
-            'BBDY' => 'Orange',
-            'BBSY' => 'Orange Sable',
-            'BBAG' => 'Wolfsfarben',
-            'BBBS' => 'Großflächiges Saddle Tan',
-            'BBBB' => 'Black&Tan',
-            'BBa' => 'Black&Tan',
-            'aDY' => 'Orange',
-            'aSY' => 'Orange Sable',
-            'aAG' => 'Wolfsfarben',
-            'aBS' => 'Großflächiges Saddle Tan',
-            'aBB' => 'Black&Tan',
-            'aa' => 'Schwarz',
-        ];
-
-        return $colors[$kombination];
-    }
-
-    private function translateColorsWithLoki($kombination) {
-        $colors = [
-            'e1e1' => 'e1e1 - Orange',
-            'KbKb' => 'KbKb - Schwarz',
-            'Kbky' => 'Kbky - Schwarz',
-            'kyKb' => 'kyKb - Schwarz',
-            'DYDY' => 'DYDY - Orange',
-            'DYSY' => 'DYSY - Orange',
-            'DYAG' => 'DYAG - Orange',
-            'DYBS' => 'DYBS - Orange',
-            'DYBB' => 'DYBB - Orange',
-            'DYa' => 'DYa - Orange',
-            'SYDY' => 'DYSY - Orange',
-            'SYSY' => 'SYSY - Orange Sable',
-            'SYAG' => 'SYAG - Orange Sable',
-            'SYBS' => 'SYBS - Orange Sable',
-            'SYBB' => 'SYBB - Orange Sable',
-            'SYa' => 'SYa - Orange Sable ',
-            'AGDY' => 'DYAG - Orange',
-            'AGSY' => 'SYAG - Orange Sable',
-            'AGAG' => 'AGAG - Wolfsfarben',
-            'AGBS' => 'AGBS - Wolfsfarben',
-            'AGBB' => 'AGBB - Wolfsfarben',
-            'AGa' => 'AGa - Wolfsfarben',
-            'BSDY' => 'DYBS - Orange',
-            'BSSY' => 'SYBS - Orange Sable',
-            'BSAG' => 'AGBS - Wolfsfarben',
-            'BSBS' => 'BSBS - Saddle Tan',
-            'BSBB' => 'BSBB - Großflächiges Saddle Tan',
-            'BSa' => 'BSa - Großflächiges Saddle Tan',
-            'BBDY' => 'DYBB - Orange',
-            'BBSY' => 'SYBB - Orange Sable',
-            'BBAG' => 'AGBB - Wolfsfarben',
-            'BBBS' => 'BSBB - Großflächiges Saddle Tan',
-            'BBBB' => 'BBBB - Black&Tan',
-            'BBa' => 'BBa - Black&Tan',
-            'aDY' => 'DYa - Orange',
-            'aSY' => 'SYa - Orange Sable',
-            'aAG' => 'AGa - Wolfsfarben',
-            'aBS' => 'BSa - Großflächiges Saddle Tan',
-            'aBB' => 'BBa - Black&Tan',
-            'aa' => 'aa - Schwarz',
-        ];
-
-        return $colors[$kombination];
-    }
-
-    private function getColorsSecundaryLoki($loki, $kombination) {
-        $colors = [
-            'E' => [
-                'NN' => '',
-                'NE' => '',
-                'Ne1' => '',
-                'NEm' => 'Maske',
-                'EN' => '',
-                'EE' => '',
-                'Ee1' => '',
-                'EEm' => 'Maske',
-                'e1N' => '',
-                'e1E' => '',
-                'e1e1' => 'Orange',
-                'e1Em' => 'Maske',
-                'EmN' => 'Maske',
-                'EmE' => 'Maske',
-                'Eme1' => 'Maske',
-                'EmEm' => 'Maske',
-            ],
-            'K' => [
-                'KbKb' => 'Schwarz',
-                'Kbky' => 'Schwarz',
-                'kyKb' => 'Schwarz',
-                'kyky' => '',
-            ],
-            'A' => [
-                'DYDY' => 'Orange',
-                'DYSY' => 'Orange',
-                'DYAG' => 'Orange',
-                'DYBS' => 'Orange',
-                'DYBB' => 'Orange',
-                'DYa' => 'Orange',
-                'SYDY' => 'Orange',
-                'SYSY' => 'Orange Sable',
-                'SYAG' => 'Orange Sable',
-                'SYBS' => 'Orange Sable',
-                'SYBB' => 'Orange Sable',
-                'SYa' => 'Orange Sable ',
-                'AGDY' => 'Orange',
-                'AGSY' => 'Orange Sable',
-                'AGAG' => 'Wolfsfarben',
-                'AGBS' => 'Wolfsfarben',
-                'AGBB' => 'Wolfsfarben',
-                'AGa' => 'Wolfsfarben',
-                'BSDY' => 'Orange',
-                'BSSY' => 'Orange Sable',
-                'BSAG' => 'Wolfsfarben',
-                'BSBS' => 'Saddle Tan',
-                'BSBB' => 'Großflächiges Saddle Tan',
-                'BSa' => 'Großflächiges Saddle Tan',
-                'BBDY' => 'Orange',
-                'BBSY' => 'Orange Sable',
-                'BBAG' => 'Wolfsfarben',
-                'BBBS' => 'Großflächiges Saddle Tan',
-                'BBBB' => 'Black&Tan',
-                'BBa' => 'Black&Tan',
-                'aDY' => 'Orange',
-                'aSY' => 'Orange Sable',
-                'aAG' => 'Wolfsfarben',
-                'aBS' => 'Großflächiges Saddle Tan',
-                'aBB' => 'Black&Tan',
-                'aa' => 'Schwarz',
-            ],
-            'B' => [
-                'NN' => '',
-                'Nbc' => '',
-                'Nbd' => '',
-                'Nbs' => '',
-                'bcN' => '',
-                'bcbc' => 'Braun',
-                'bcbd' => 'Braun',
-                'bcbs' => 'Braun',
-                'bdN' => '',
-                'bdbc' => 'Braun',
-                'bdbd' => 'Braun',
-                'bdbs' => 'Braun',
-                'bsN' => '',
-                'bsbc' => 'Braun',
-                'bsbd' => 'Braun',
-                'bsbs' => 'Braun',
-            ],
-            'D' => [
-                'NN' => '',
-                'Nd1' => '',
-                'd1N' => '',
-                'd1d1' => 'Blue',
-            ],
-            'I' => [
-                'II' => 'Dunkel',
-                'Ii' => 'Mittel',
-                'iI' => 'Mittel',
-                'ii' => 'Hell',
-            ],
-            'S' => [
-                'NS' => 'Abzeichen',
-                'SN' => 'Abzeichen',
-                'NN' => '',
-                'SS' => 'Scheckung',
-            ],
-        ];
-
-        return $colors[$loki][$kombination];
     }
 
     private function getImageOfParent($lokiParent) {
@@ -382,10 +198,10 @@ class Ausgabe
         $false = "false";
 
         $formularArray = [
-            'eLokus_Hund_1_1' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
-            'eLokus_Hund_1_2' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
-            'eLokus_Hund_2_1' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
-            'eLokus_Hund_2_2' => ['none' => '', 'N' => '', 'Em' => '', 'e1' => ''],
+            'eLokus_Hund_1_1' => ['none' => '', 'N' => '', 'EM' => '', 'e1' => ''],
+            'eLokus_Hund_1_2' => ['none' => '', 'N' => '', 'EM' => '', 'e1' => ''],
+            'eLokus_Hund_2_1' => ['none' => '', 'N' => '', 'EM' => '', 'e1' => ''],
+            'eLokus_Hund_2_2' => ['none' => '', 'N' => '', 'EM' => '', 'e1' => ''],
             'kLokus_Hund_1_1' => ['none' => '', 'Kb' => '', 'ky' => ''],
             'kLokus_Hund_1_2' => ['none' => '', 'Kb' => '', 'ky' => ''],
             'kLokus_Hund_2_1' => ['none' => '', 'Kb' => '', 'ky' => ''],
@@ -410,19 +226,58 @@ class Ausgabe
             'sLokus_Hund_1_2' => ['none' => '', 'N' => '', 'S' => ''],
             'sLokus_Hund_2_1' => ['none' => '', 'N' => '', 'S' => ''],
             'sLokus_Hund_2_2' => ['none' => '', 'N' => '', 'S' => ''],
+            'savesDogA' => ['none' => '', 'galahad' => '', 'ivo-wunjo' => '', 'aslan' => ''],
         ];
 
-        foreach($formularWerte as $key => $wert){
-            $formularArray[$key][$wert] = 'selected="selected"';
+        $dogName = savedDogs[$formularWerte['savesDogA']];
+
+        if(array_key_exists('savesDogA',$formularWerte) && $formularWerte['savesDogA'] !== 'none'){
+            $formularArray['eLokus_Hund_1_1'][$dogName['E'][0]] = 'selected="selected"';
+            $formularArray['eLokus_Hund_1_2'][$dogName['E'][1]] = 'selected="selected"';
+            $formularArray['kLokus_Hund_1_1'][$dogName['K'][0]] = 'selected="selected"';
+            $formularArray['kLokus_Hund_1_2'][$dogName['K'][1]] = 'selected="selected"';
+            $formularArray['aLokus_Hund_1_1'][$dogName['A'][0]] = 'selected="selected"';
+            $formularArray['aLokus_Hund_1_2'][$dogName['A'][1]] = 'selected="selected"';
+            $formularArray['bLokus_Hund_1_1'][$dogName['B'][0]] = 'selected="selected"';
+            $formularArray['bLokus_Hund_1_2'][$dogName['B'][1]] = 'selected="selected"';
+            $formularArray['dLokus_Hund_1_1'][$dogName['D'][0]] = 'selected="selected"';
+            $formularArray['dLokus_Hund_1_2'][$dogName['D'][1]] = 'selected="selected"';
+            $formularArray['iLokus_Hund_1_1'][$dogName['I'][0]] = 'selected="selected"';
+            $formularArray['iLokus_Hund_1_2'][$dogName['I'][1]] = 'selected="selected"';
+            $formularArray['sLokus_Hund_1_1'][$dogName['S'][0]] = 'selected="selected"';
+            $formularArray['sLokus_Hund_1_2'][$dogName['S'][1]] = 'selected="selected"';
+
+            $formularArray['eLokus_Hund_2_1'][$formularWerte['eLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['eLokus_Hund_2_2'][$formularWerte['eLokus_Hund_2_2']] = 'selected="selected"';
+            $formularArray['kLokus_Hund_2_1'][$formularWerte['kLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['kLokus_Hund_2_2'][$formularWerte['kLokus_Hund_2_2']] = 'selected="selected"';
+            $formularArray['aLokus_Hund_2_1'][$formularWerte['aLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['aLokus_Hund_2_2'][$formularWerte['aLokus_Hund_2_2']] = 'selected="selected"';
+            $formularArray['bLokus_Hund_2_1'][$formularWerte['bLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['bLokus_Hund_2_2'][$formularWerte['bLokus_Hund_2_2']] = 'selected="selected"';
+            $formularArray['dLokus_Hund_2_1'][$formularWerte['dLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['dLokus_Hund_2_2'][$formularWerte['dLokus_Hund_2_2']] = 'selected="selected"';
+            $formularArray['iLokus_Hund_2_1'][$formularWerte['iLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['iLokus_Hund_2_2'][$formularWerte['iLokus_Hund_2_2']] = 'selected="selected"';
+            $formularArray['sLokus_Hund_2_1'][$formularWerte['sLokus_Hund_2_1']] = 'selected="selected"';
+            $formularArray['sLokus_Hund_2_2'][$formularWerte['sLokus_Hund_2_2']] = 'selected="selected"';
+
+            $formularArray['savesDogA'][$formularWerte['savesDogA']] = 'selected="selected"';
+        } else {
+            foreach($formularWerte as $key => $wert){
+                $formularArray[$key][$wert] = 'selected="selected"';
+            }
         }
 
         $show_parent_a = '';
         $show_parent_b = '';
 
         if (!empty($formularWerteAufbereitet)) {
-            $show_parent_a = $this->getImageOfParent($formularWerteAufbereitet['A']);
-            $show_parent_b = $this->getImageOfParent($formularWerteAufbereitet['B']);
+//            $show_parent_a = $this->getImageOfParent($formularWerteAufbereitet['A']); //TODO: überarbeiten
+//            $show_parent_b = $this->getImageOfParent($formularWerteAufbereitet['B']);
         }
+
+        $bezeichnung = ($dogName['name'] !== 'none') ? $dogName['name'] :'Hund A';
 
         $formular = '
             <div class="farbgenetik_content_genetikrechner">
@@ -431,40 +286,36 @@ class Ausgabe
                     <table>
                         <tr>
                             <th>Lokus</th>
-                            <th colspan="2">Hund A</th>
+                            <th colspan="2">'.$bezeichnung.'</th>
                             <th colspan="2">Hund B</th>
                         </tr>
                         <tr>
                             <td>E Lokus</td>
                             <td>
                                 <select name="eLokus_Hund_1_1" id="eLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['eLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_1_1']['N'].'>N(E)</option>
-                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
+                                    <option value="EM" '.$formularArray['eLokus_Hund_1_1']['EM'].'>EM(Schwarzmaske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_1_1']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="eLokus_Hund_1_2" id="eLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['eLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_1_2']['N'].'>N(E)</option>
-                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
+                                    <option value="EM" '.$formularArray['eLokus_Hund_1_1']['EM'].'>EM(Schwarzmaske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_1_2']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="eLokus_Hund_2_1" id="eLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['eLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_2_1']['N'].'>N(E)</option>
-                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
+                                    <option value="EM" '.$formularArray['eLokus_Hund_1_1']['EM'].'>EM(Schwarzmaske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_2_1']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="eLokus_Hund_2_2" id="eLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['eLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['eLokus_Hund_2_2']['N'].'>N(E)</option>
-                                    <option value="Em" '.$formularArray['eLokus_Hund_1_1']['Em'].'>Em(Maske)</option>
+                                    <option value="EM" '.$formularArray['eLokus_Hund_1_1']['EM'].'>EM(Schwarzmaske)</option>
                                     <option value="e1" '.$formularArray['eLokus_Hund_2_2']['e1'].'>e1(e)</option>
                                 </select>
                             </td>
@@ -473,28 +324,24 @@ class Ausgabe
                             <td>K Lokus</td>
                             <td>
                                 <select name="kLokus_Hund_1_1" id="kLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['kLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="Kb" '.$formularArray['kLokus_Hund_1_1']['Kb'].'>Kb</option>
                                     <option value="ky" '.$formularArray['kLokus_Hund_1_1']['ky'].'>ky</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="kLokus_Hund_1_2" id="kLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['kLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="Kb" '.$formularArray['kLokus_Hund_1_2']['Kb'].'>Kb</option>
                                     <option value="ky" '.$formularArray['kLokus_Hund_1_2']['ky'].'>ky</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="kLokus_Hund_2_1" id="kLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['kLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="Kb" '.$formularArray['kLokus_Hund_2_1']['Kb'].'>Kb</option>
                                     <option value="ky" '.$formularArray['kLokus_Hund_2_1']['ky'].'>ky</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="kLokus_Hund_2_2" id="kLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['kLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="Kb" '.$formularArray['kLokus_Hund_2_2']['Kb'].'>Kb</option>
                                     <option value="ky" '.$formularArray['kLokus_Hund_2_2']['ky'].'>ky</option>
                                 </select>
@@ -504,7 +351,6 @@ class Ausgabe
                             <td>A Lokus</td>
                             <td>
                                 <select name="aLokus_Hund_1_1" id="aLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['aLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="DY" '.$formularArray['aLokus_Hund_1_1']['DY'].'>DY(Ay)</option>
                                     <option value="SY" '.$formularArray['aLokus_Hund_1_1']['SY'].'>SY(Ay)</option>
                                     <option value="AG" '.$formularArray['aLokus_Hund_1_1']['AG'].'>AG(Aw)</option>
@@ -515,7 +361,6 @@ class Ausgabe
                             </td>
                             <td>
                                 <select name="aLokus_Hund_1_2" id="aLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['aLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="DY" '.$formularArray['aLokus_Hund_1_2']['DY'].'>DY(Ay)</option>
                                     <option value="SY" '.$formularArray['aLokus_Hund_1_2']['SY'].'>SY(Ay)</option>
                                     <option value="AG" '.$formularArray['aLokus_Hund_1_2']['AG'].'>AG(Aw)</option>
@@ -526,7 +371,6 @@ class Ausgabe
                             </td>
                             <td>
                                 <select name="aLokus_Hund_2_1" id="aLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['aLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="DY" '.$formularArray['aLokus_Hund_2_1']['DY'].'>DY(Ay)</option>
                                     <option value="SY" '.$formularArray['aLokus_Hund_2_1']['SY'].'>SY(Ay)</option>
                                     <option value="AG" '.$formularArray['aLokus_Hund_2_1']['AG'].'>AG(Aw)</option>
@@ -537,7 +381,6 @@ class Ausgabe
                             </td>
                             <td>
                                 <select name="aLokus_Hund_2_2" id="aLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['aLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="DY" '.$formularArray['aLokus_Hund_2_2']['DY'].'>DY(Ay)</option>
                                     <option value="SY" '.$formularArray['aLokus_Hund_2_2']['SY'].'>SY(Ay)</option>
                                     <option value="AG" '.$formularArray['aLokus_Hund_2_2']['AG'].'>AG(Aw)</option>
@@ -551,7 +394,6 @@ class Ausgabe
                             <td>B Lokus</td>
                             <td>
                                 <select name="bLokus_Hund_1_1" id="bLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['bLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['bLokus_Hund_1_1']['N'].'>N(B)</option>
                                     <option value="bd" '.$formularArray['bLokus_Hund_1_1']['bd'].'>bd</option>
                                     <option value="bc" '.$formularArray['bLokus_Hund_1_1']['bc'].'>bc</option>
@@ -560,7 +402,6 @@ class Ausgabe
                             </td>
                             <td>
                                 <select name="bLokus_Hund_1_2" id="bLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['bLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['bLokus_Hund_1_2']['N'].'>N(B)</option>
                                     <option value="bd" '.$formularArray['bLokus_Hund_1_2']['bd'].'>bd</option>
                                     <option value="bc" '.$formularArray['bLokus_Hund_1_2']['bc'].'>bc</option>
@@ -569,7 +410,6 @@ class Ausgabe
                             </td>
                             <td>
                                 <select name="bLokus_Hund_2_1" id="bLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['bLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['bLokus_Hund_2_1']['N'].'>N(B)</option>
                                     <option value="bd" '.$formularArray['bLokus_Hund_2_1']['bd'].'>bd</option>
                                     <option value="bc" '.$formularArray['bLokus_Hund_2_1']['bc'].'>bc</option>
@@ -578,7 +418,6 @@ class Ausgabe
                             </td>
                             <td>
                                 <select name="bLokus_Hund_2_2" id="bLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['bLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['bLokus_Hund_2_2']['N'].'>N(B)</option>
                                     <option value="bd" '.$formularArray['bLokus_Hund_2_2']['bd'].'>bd</option>
                                     <option value="bc" '.$formularArray['bLokus_Hund_2_2']['bc'].'>bc</option>
@@ -590,28 +429,24 @@ class Ausgabe
                             <td>D Lokus</td>
                             <td>
                                 <select name="dLokus_Hund_1_1" id="dLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['dLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['dLokus_Hund_1_1']['N'].'>N(D)</option>
                                     <option value="d1" '.$formularArray['dLokus_Hund_1_1']['d1'].'>d1</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="dLokus_Hund_1_2" id="dLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['dLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['dLokus_Hund_1_2']['N'].'>N(D)</option>
                                     <option value="d1" '.$formularArray['dLokus_Hund_1_2']['d1'].'>d1</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="dLokus_Hund_2_1" id="dLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['dLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['dLokus_Hund_2_1']['N'].'>N(D)</option>
                                     <option value="d1" '.$formularArray['dLokus_Hund_2_1']['d1'].'>d1</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="dLokus_Hund_2_2" id="dLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['dLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['dLokus_Hund_2_2']['N'].'>N(D)</option>
                                     <option value="d1" '.$formularArray['dLokus_Hund_2_2']['d1'].'>d1</option>
                                 </select>
@@ -621,28 +456,24 @@ class Ausgabe
                             <td>I Lokus</td>
                             <td>
                                 <select name="iLokus_Hund_1_1" id="iLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['iLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="I" '.$formularArray['iLokus_Hund_1_1']['I'].'>I</option>
                                     <option value="i" '.$formularArray['iLokus_Hund_1_1']['i'].'>i</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="iLokus_Hund_1_2" id="iLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['iLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="I" '.$formularArray['iLokus_Hund_1_2']['I'].'>I</option>
                                     <option value="i" '.$formularArray['iLokus_Hund_1_2']['i'].'>i</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="iLokus_Hund_2_1" id="iLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['iLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="I" '.$formularArray['iLokus_Hund_2_1']['I'].'>I</option>
                                     <option value="i" '.$formularArray['iLokus_Hund_2_1']['i'].'>i</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="iLokus_Hund_2_2" id="iLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['iLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="I" '.$formularArray['iLokus_Hund_2_2']['I'].'>I</option>
                                     <option value="i" '.$formularArray['iLokus_Hund_2_2']['i'].'>i</option>
                                 </select>
@@ -652,28 +483,24 @@ class Ausgabe
                             <td>S Lokus</td>
                             <td>
                                 <select name="sLokus_Hund_1_1" id="sLokus_Hund_1_1">
-                                    <option value="none" '.$formularArray['sLokus_Hund_1_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['sLokus_Hund_1_1']['N'].'>N</option>
                                     <option value="S" '.$formularArray['sLokus_Hund_1_1']['S'].'>S</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="sLokus_Hund_1_2" id="sLokus_Hund_1_2">
-                                    <option value="none" '.$formularArray['sLokus_Hund_1_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['sLokus_Hund_1_2']['N'].'>N</option>
                                     <option value="S" '.$formularArray['sLokus_Hund_1_2']['S'].'>S</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="sLokus_Hund_2_1" id="sLokus_Hund_2_1">
-                                    <option value="none" '.$formularArray['sLokus_Hund_2_1']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['sLokus_Hund_2_1']['N'].'>N</option>
                                     <option value="S" '.$formularArray['sLokus_Hund_2_1']['S'].'>S</option>
                                 </select>
                             </td>
                             <td>
                                 <select name="sLokus_Hund_2_2" id="sLokus_Hund_2_2">
-                                    <option value="none" '.$formularArray['sLokus_Hund_2_2']['none'].'>keine Auswahl</option>
                                     <option value="N" '.$formularArray['sLokus_Hund_2_2']['N'].'>N</option>
                                     <option value="S" '.$formularArray['sLokus_Hund_2_2']['S'].'>S</option>
                                 </select>
@@ -681,6 +508,15 @@ class Ausgabe
                         </tr>
     
                     </table>
+                    <br>
+                    <b>Vordefinierte Werte für Hund A</b><br>
+                    <select name="savesDogA" id="savesDogA"">
+                        <option value="none" '.$formularArray['savesDogA']['none'].'>-- Kein Wert Gewählt --</option>
+                        <option value="galahad" '.$formularArray['savesDogA']['galahad'].'>Lord Galahad von Jaluk Aurora</option>
+                        <option value="ivo-wunjo" '.$formularArray['savesDogA']['ivo-wunjo'].'>Ivo-Wunjo von Jaluk Aurora</option>
+                        <option value="aslan" '.$formularArray['savesDogA']['aslan'].'>Aslan von der Rosssteige</option>
+                    </select>
+                    <br>
                     <br>
                     <input type="submit" value="absenden" />
                 </form>
@@ -701,12 +537,12 @@ class Ausgabe
 
     }
 
-    private function showLokiPossibilities($formularWerteAufbereitet)
+    private function showLokiPossibilities($h, $formularWerteAufbereitet)
     {
         $test = [];
         $output = '
             <div class="farbgenetik_content">
-            <h4>Kombinationen der Loki</h4>
+            <h4>Kombinationen der Loki und der daraus resultierenden Wahrscheinlichkeiten</h4>
             <div class="rowChildren">
         ';
         if(isset($formularWerteAufbereitet) && array_key_exists('A', $formularWerteAufbereitet)) {
@@ -738,9 +574,10 @@ class Ausgabe
                                 <td class="Children">'.$combination[1].'</td>
                                 <td class="Children">'.$combination[3].'</td>
                             </tr>
-                        </table>
-                    </div>
-                    ';
+                        </table>';
+
+                    $output .= $h->ausgabePossibilities($lokus, $combination);
+                    $output .='</div>';
 
             }
         }
@@ -748,310 +585,67 @@ class Ausgabe
         return $output;
     }
 
-    private function showPossibleColorsOfChildren($formularWerteAufbereitet)
-    {
-        $content = '';
-        $combinations = [];
-
-        $content .= '
-            <div class="farbgenetik_content">
-            <h4>Farbkombinationen der Welpen nach Wahrscheinlichkeit</h4>
-        ';
-
-        if(empty($formularWerteAufbereitet)){
-            return $content;
-        }
-
-        foreach($formularWerteAufbereitet['A'] as $loki=>$wert){
-            $combinations[$loki] = [
-                $formularWerteAufbereitet['A'][$loki][0].$formularWerteAufbereitet['B'][$loki][0],
-                $formularWerteAufbereitet['A'][$loki][0].$formularWerteAufbereitet['B'][$loki][1],
-                $formularWerteAufbereitet['A'][$loki][1].$formularWerteAufbereitet['B'][$loki][0],
-                $formularWerteAufbereitet['A'][$loki][1].$formularWerteAufbereitet['B'][$loki][1],
-            ];
-        }
-
-        if(!empty($combinations)){
-            $rest = 1;
-            $prozentuebergabe = 1;
-            if(array_key_exists('E', $combinations)){
-                $mengePositiv = 0;
-                foreach($combinations['E'] as $kombination){
-                    if($this->isELokusShown($kombination)){
-                        $mengePositiv++;
-                    }
-                }
-
-                if($mengePositiv !== 0){
-                    $prozentRezessivGelb= (1/count($combinations['E']))*$mengePositiv;
-                    $prozentuebergabe = 1-$prozentRezessivGelb;
-
-                    $content .= ($prozentRezessivGelb*100). '% rezzesiv Gelb<br>';
-                }
-            }
-
-            if(array_key_exists('K', $combinations)){
-                $mengePositiv = 0;
-                foreach($combinations['K'] as $kombination){
-                    if($this->isKLokusShown($kombination)){
-                        $mengePositiv++;
-                    }
-                }
-
-                if($mengePositiv !== 0) {
-                    $prozentSchwarz= (1/count($combinations['K']))*$mengePositiv;
-                    if($prozentuebergabe === 1){
-                        $rest = 1-$prozentSchwarz;
-                    } else {
-                        $rest = $prozentuebergabe-($prozentuebergabe*$prozentSchwarz);
-                    }
-
-                    $content .=  ($prozentuebergabe*$prozentSchwarz)*100 . '% dominant Schwarz<br>';
-                } else {
-                    $rest = $prozentuebergabe;
-                }
-            }
-
-            if(array_key_exists('A', $combinations)){
-                $content .= ($rest*100). '% prägen den A-Lokus Phänotypisch aus<br><hr>A-Lokus Farb-Wahrscheinlichkeiten<br><br>';
-                $prozentFarbe = 1/count(array_unique($combinations['A']));
-
-                if($rest !== 0.0) {
-                    foreach (array_unique($combinations['A']) as $kombination) {
-                        $content .= ($rest*$prozentFarbe) * 100 . '% ' . $this->translateColorsWithLoki($kombination) . '<br>';
-                    }
-                }
-            }
-        }
-
-
-        $content .= '
-            </div>
-        ';
-
-        return $content;
-    }
-
-    private function berechneFarbwahrscheinlichkeiten($formularWerteAufbereitet)
-    {
-        $kombinationen = [
-            'wahrscheinlichkeiten' => [],
-            'farben' => [
-                'Grundfarben' => [],
-                'K' => [],
-                'I' => [],
-                'S' => [],
-            ],
-        ];
-        if(empty($formularWerteAufbereitet)){
-            return [];
-        }
-
-        foreach($formularWerteAufbereitet['A'] as $loki=>$wert){
-            $combinations[$loki] = [
-                $formularWerteAufbereitet['A'][$loki][0].$formularWerteAufbereitet['B'][$loki][0],
-                $formularWerteAufbereitet['A'][$loki][0].$formularWerteAufbereitet['B'][$loki][1],
-                $formularWerteAufbereitet['A'][$loki][1].$formularWerteAufbereitet['B'][$loki][0],
-                $formularWerteAufbereitet['A'][$loki][1].$formularWerteAufbereitet['B'][$loki][1],
-            ];
-        }
-
-        if(!empty($combinations)){
-            $rest = 1;
-            $prozentuebergabe = 1;
-            if(array_key_exists('E', $combinations)){
-                $mengePositiv = 0;
-                foreach($combinations['E'] as $kombination){
-                    if($this->isELokusShown($kombination)){
-                        $mengePositiv++;
-                    }
-                }
-
-                if($mengePositiv !== 0){
-                    $prozentRezessivGelb= (1/count($combinations['E']))*$mengePositiv;
-                    $prozentuebergabe = 1-$prozentRezessivGelb;
-
-                    $kombinationen['wahrscheinlichkeiten']['dominant Gelb'] = $prozentRezessivGelb*100;
-                    $kombinationen['farben']['Grundfarben'][] = 'Orange';
-                }
-            }
-
-            if(array_key_exists('K', $combinations)){
-                $mengePositiv = 0;
-                foreach($combinations['K'] as $kombination){
-                    if($this->isKLokusShown($kombination)){
-                        $mengePositiv++;
-                    }
-                }
-
-                if($mengePositiv !== 0) {
-                    $prozentSchwarz= (1/count($combinations['K']))*$mengePositiv;
-                    if($prozentuebergabe === 1){
-                        $rest = 1-$prozentSchwarz;
-                    } else {
-                        $rest = $prozentuebergabe-($prozentuebergabe*$prozentSchwarz);
-                    }
-                    $kombinationen['wahrscheinlichkeiten']['dominant Schwarz'] = ($prozentuebergabe*$prozentSchwarz)*100;
-                    $kombinationen['farben']['Grundfarben'][] = 'Schwarz';
-
-                    if(array_key_exists('B', $combinations)){
-                        foreach (array_unique($combinations['B']) as $kombination) {
-                            if(!empty($this->getColorsSecundaryLoki('B', $kombination))) {
-                                $kombinationen['farben']['K'][] = $this->getColorsSecundaryLoki('B', $kombination);
-                            }
-                        }
-                    }
-
-                    if(array_key_exists('D', $combinations)){
-                        foreach (array_unique($combinations['D']) as $kombination) {
-                            if(!empty($this->getColorsSecundaryLoki('D', $kombination))) {
-                                $kombinationen['farben']['K'][] = $this->getColorsSecundaryLoki('D', $kombination);
-                            }
-                        }
-                    }
-
-                    if(in_array('Braun', $kombinationen['farben']['K']) && in_array('Blue', $kombinationen['farben']['K'])){
-                        $kombinationen['farben']['K'][] = 'Isabella';
-                    }
-
-                } else {
-                    $rest = $prozentuebergabe;
-                }
-            }
-
-            if(array_key_exists('A', $combinations)){
-                $prozentFarbe = 1/count(array_unique($combinations['A']));
-
-                if($rest !== 0.0) {
-                    foreach (array_unique($combinations['A']) as $kombination) {
-                        $kombinationen['wahrscheinlichkeiten'][$this->translateColorsWithLoki($kombination)] = ($rest*$prozentFarbe) * 100;
-                        $kombinationen['farben']['Grundfarben'][] = $this->translateColorsWithoutLoki($kombination);
-                    }
-                }
-
-                if(in_array('Black&Tan', $kombinationen['farben']['Grundfarben']) && in_array('Braun', $kombinationen['farben']['Grundfarben'])){
-                    $kombinationen['farben']['Grundfarben'][] = 'Brown&Tan';
-                }
-            }
-
-            if(array_key_exists('I', $combinations)){
-                foreach (array_unique($combinations['I']) as $kombination) {
-                    if(!empty($this->getColorsSecundaryLoki('I', $kombination))) {
-                        $kombinationen['farben']['I'][] = $this->getColorsSecundaryLoki('I', $kombination);
-                    }
-                }
-            }
-
-            if(array_key_exists('S', $combinations)){
-                foreach (array_unique($combinations['S']) as $kombination) {
-                    if(!empty($this->getColorsSecundaryLoki('S', $kombination))){
-                        $kombinationen['farben']['S'][] = $this->getColorsSecundaryLoki('S', $kombination);
-                    }
-                }
-            }
-        }
-
-
-        $kombinationen['farben']['Grundfarben'] = array_unique($kombinationen['farben']['Grundfarben']);
-
-        return $kombinationen;
-    }
-
-    private function paintChildrenColorTable($formularWerteAufbereitet)
-    {
-        $wahrscheinlichkeiten = $this->berechneFarbwahrscheinlichkeiten($formularWerteAufbereitet);
-        $content = '<div class="farbgenetik_content"><table>';
-
-        foreach ($wahrscheinlichkeiten['farben']['Grundfarben'] as $farbe) {
-            $zusatz = '';
-            if ($farbe === "Schwarz" && !empty($wahrscheinlichkeiten['farben']['K'])) {
-                foreach ($wahrscheinlichkeiten['farben']['K'] as $schwarz_zusatz) {
-                    $zusatz .= '
-                        <td>
-                            <div class="childrenResultTableDiv">
-                                '.$schwarz_zusatz.'<img class="EKALokus" src="images/' . $schwarz_zusatz . '.png" style="height:200px;">
-                            </div>
-                        </td>
-                    ';
-                }
-            }
-            if ($farbe === "Black&Tan" && in_array('Braun', $wahrscheinlichkeiten['farben']['K'])) {
-                $zusatz .= '
-                    <td>
-                        <div class="childrenResultTableDiv">
-                            Brown&Tan <img class="EKALokus" src="images/Brown&Tan.png" style="height:200px;">
-                        </div>
-                    </td>
-                ';
-            }
-            if ($farbe === "Black&Tan" && in_array('Blue', $wahrscheinlichkeiten['farben']['K'])) {
-                $zusatz .= '
-                    <td>
-                        <div class="childrenResultTableDiv">
-                            Blue&Tan <img class="EKALokus" src="images/Blue&Tan.png" style="height:200px;">
-                        </div>
-                    </td>
-                ';
-            }
-
-            $content .= '
-                <tr>
-                    <td>
-                        <div class="childrenResultTableDiv">
-                            '.$farbe.'<img class="EKALokus" src="images/' . $farbe . '.png" style="height:200px;">
-                        </div>
-                    </td>
-                    '.$zusatz.'
-                </tr>
-            ';
-        }
-
-        $content .= '</table></div>';
-//        print_r($wahrscheinlichkeiten);
-
-
-        return $content;
-
-
-    }
-
-
     public function showContent()
     {
         $content = '<div class="content">';
 
         $formularWerte = $_POST;
         $formularWerteAufbereitet = [];
+
         if(!empty($formularWerte) && count($formularWerte)>1){
-            $formularWerteAufbereitet = [
-                'A' => [
-                    'E' => [$formularWerte['eLokus_Hund_1_1'], $formularWerte['eLokus_Hund_1_2']],
-                    'K' => [$formularWerte['kLokus_Hund_1_1'], $formularWerte['kLokus_Hund_1_2']],
-                    'A' => [$formularWerte['aLokus_Hund_1_1'], $formularWerte['aLokus_Hund_1_2']],
-                    'B' => [$formularWerte['bLokus_Hund_1_1'], $formularWerte['bLokus_Hund_1_2']],
-                    'D' => [$formularWerte['dLokus_Hund_1_1'], $formularWerte['dLokus_Hund_1_2']],
-                    'I' => [$formularWerte['iLokus_Hund_1_1'], $formularWerte['iLokus_Hund_1_2']],
-                    'S' => [$formularWerte['sLokus_Hund_1_1'], $formularWerte['sLokus_Hund_1_2']],
-                ],
-                'B' => [
-                    'E' => [$formularWerte['eLokus_Hund_2_1'], $formularWerte['eLokus_Hund_2_2']],
-                    'K' => [$formularWerte['kLokus_Hund_2_1'], $formularWerte['kLokus_Hund_2_2']],
-                    'A' => [$formularWerte['aLokus_Hund_2_1'], $formularWerte['aLokus_Hund_2_2']],
-                    'B' => [$formularWerte['bLokus_Hund_2_1'], $formularWerte['bLokus_Hund_2_2']],
-                    'D' => [$formularWerte['dLokus_Hund_2_1'], $formularWerte['dLokus_Hund_2_2']],
-                    'I' => [$formularWerte['iLokus_Hund_2_1'], $formularWerte['iLokus_Hund_2_2']],
-                    'S' => [$formularWerte['sLokus_Hund_2_1'], $formularWerte['sLokus_Hund_2_2']],
-                ],
-            ];
+
+            if($formularWerte['savesDogA'] !== 'none'){
+                $formularWerteAufbereitet = [
+                    'A' => [
+                        'E' => savedDogs[$formularWerte['savesDogA']]['E'],
+                        'K' => savedDogs[$formularWerte['savesDogA']]['K'],
+                        'A' => savedDogs[$formularWerte['savesDogA']]['A'],
+                        'B' => savedDogs[$formularWerte['savesDogA']]['B'],
+                        'D' => savedDogs[$formularWerte['savesDogA']]['D'],
+                        'I' => savedDogs[$formularWerte['savesDogA']]['I'],
+                        'S' => savedDogs[$formularWerte['savesDogA']]['S'],
+                    ],
+                    'B' => [
+                        'E' => [$formularWerte['eLokus_Hund_2_1'], $formularWerte['eLokus_Hund_2_2']],
+                        'K' => [$formularWerte['kLokus_Hund_2_1'], $formularWerte['kLokus_Hund_2_2']],
+                        'A' => [$formularWerte['aLokus_Hund_2_1'], $formularWerte['aLokus_Hund_2_2']],
+                        'B' => [$formularWerte['bLokus_Hund_2_1'], $formularWerte['bLokus_Hund_2_2']],
+                        'D' => [$formularWerte['dLokus_Hund_2_1'], $formularWerte['dLokus_Hund_2_2']],
+                        'I' => [$formularWerte['iLokus_Hund_2_1'], $formularWerte['iLokus_Hund_2_2']],
+                        'S' => [$formularWerte['sLokus_Hund_2_1'], $formularWerte['sLokus_Hund_2_2']],
+                    ],
+                ];
+            } else {
+                $formularWerteAufbereitet = [
+                    'A' => [
+                        'E' => [$formularWerte['eLokus_Hund_1_1'], $formularWerte['eLokus_Hund_1_2']],
+                        'K' => [$formularWerte['kLokus_Hund_1_1'], $formularWerte['kLokus_Hund_1_2']],
+                        'A' => [$formularWerte['aLokus_Hund_1_1'], $formularWerte['aLokus_Hund_1_2']],
+                        'B' => [$formularWerte['bLokus_Hund_1_1'], $formularWerte['bLokus_Hund_1_2']],
+                        'D' => [$formularWerte['dLokus_Hund_1_1'], $formularWerte['dLokus_Hund_1_2']],
+                        'I' => [$formularWerte['iLokus_Hund_1_1'], $formularWerte['iLokus_Hund_1_2']],
+                        'S' => [$formularWerte['sLokus_Hund_1_1'], $formularWerte['sLokus_Hund_1_2']],
+                    ],
+                    'B' => [
+                        'E' => [$formularWerte['eLokus_Hund_2_1'], $formularWerte['eLokus_Hund_2_2']],
+                        'K' => [$formularWerte['kLokus_Hund_2_1'], $formularWerte['kLokus_Hund_2_2']],
+                        'A' => [$formularWerte['aLokus_Hund_2_1'], $formularWerte['aLokus_Hund_2_2']],
+                        'B' => [$formularWerte['bLokus_Hund_2_1'], $formularWerte['bLokus_Hund_2_2']],
+                        'D' => [$formularWerte['dLokus_Hund_2_1'], $formularWerte['dLokus_Hund_2_2']],
+                        'I' => [$formularWerte['iLokus_Hund_2_1'], $formularWerte['iLokus_Hund_2_2']],
+                        'S' => [$formularWerte['sLokus_Hund_2_1'], $formularWerte['sLokus_Hund_2_2']],
+                    ],
+                ];
+            }
         }
+
+        $h = new Helper();
 
         $content .= $this->buildFormular($formularWerte, $formularWerteAufbereitet);
         $content .= '<br>';
-        $content .= $this->showLokiPossibilities($formularWerteAufbereitet);
+        $content .= $this->showLokiPossibilities($h, $formularWerteAufbereitet);
         $content .= '<br>';
-        $content .= $this->showPossibleColorsOfChildren($formularWerteAufbereitet);
-        $content .= '<br>';
-        $content .= $this->paintChildrenColorTable($formularWerteAufbereitet);
+        $content .= $h->giveColorPossibilities($formularWerteAufbereitet);
 
         $content .= '</div>';
 

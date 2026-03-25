@@ -19,43 +19,6 @@
     $a->showContent();
 ?>
 
-<!--<table>-->
-<!--    <tr>-->
-<!--        <td>-->
-<!--            <div class="childrenResultTableDiv">-->
-<!--                <img class="EKALokus" src="images/AGAG.png">-->
-<!--                <img class="SLokus" src="images/NS.png">-->
-<!--            </div>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <div class="childrenResultTableDiv">-->
-<!--                <img class="EKALokus" src="images/AGAG.png">-->
-<!--                <img class="SLokus" src="images/NS.png">-->
-<!--            </div>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <div class="childrenResultTableDiv">-->
-<!--                <img class="EKALokus" src="images/AGAG.png">-->
-<!--                <img class="SLokus" src="images/NS.png">-->
-<!--            </div>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>-->
-<!--            <div class="childrenResultTableDiv">-->
-<!--                <img class="EKALokus" src="images/AGAG.png">-->
-<!--                <img class="SLokus" src="images/NS.png">-->
-<!--            </div>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <div class="childrenResultTableDiv">-->
-<!--                <img class="EKALokus" src="images/AGAG.png">-->
-<!--                <img class="SLokus" src="images/NS.png">-->
-<!--            </div>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</table>-->
-
 <hr>
 <br>
 <div class="ImpresssumButton"><button onclick="showImpressum()">Impressum</button><button onclick="showDatenschutz()">Datenschutz</button></div>
