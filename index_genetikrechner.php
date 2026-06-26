@@ -11,6 +11,9 @@
     </script>
 </head>
 <body>
+
+
+
 <?php
     include 'Ausgabe.php';
     use Ausgabe\Ausgabe;

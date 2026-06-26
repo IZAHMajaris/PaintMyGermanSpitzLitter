@@ -132,6 +132,19 @@ div.farbgenetik_content {
 .pswp__share--download { display: none; }
 
 
+.simpleDogImages{
+    width: 200px;
+    position: relative;
+    left: unset;
+    top: unset;
+}
+
+.simpleDogImagesMain{
+    width: 300px;
+    position: relative;
+    left: unset;
+    top: unset;
+}
 
 * {
     box-sizing: border-box;
